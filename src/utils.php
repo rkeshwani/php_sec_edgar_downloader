@@ -165,6 +165,113 @@ class Utils
             $filing_details_filename
         );
     }
+    public function download_filings(
+        $download_folder,
+        $ticker_or_cik,
+        $filing_type,
+        $filings_to_fetch,
+        $include_filing_details,
+        $user_agent
+    ) {
+        $client = new \GuzzleHttp\Client();
+        try {
+            foreach ($filings_to_fetch as $filing) {
+                try {
+                    Utils::download_and_save_filing(
+                        $client,
+                        $download_folder,
+                        $ticker_or_cik,
+                        $filing->accession_number,
+                        $filing_type,
+                        $filing->full_submission_url,
+                        Constants::FILING_FULL_SUBMISSION_FILENAME,
+                        $user_agent
+                    );
+                } catch (\GuzzleHttp\Exception\RequestException $e) {
+                    echo "Skipping full submission download for '{$filing->accession_number}' due to network error: {$e->getMessage()}.\n";
+                }
+    
+                if ($include_filing_details) {
+                    try {
+                        Utils::download_and_save_filing(
+                            $client,
+                            $download_folder,
+                            $ticker_or_cik,
+                            $filing->accession_number,
+                            $filing_type,
+                            $filing->filing_details_url,
+                            $filing->filing_details_filename,
+                            $user_agent,
+                            true
+                        );
+                    } catch (\GuzzleHttp\Exception\RequestException $e) {
+                        echo "Skipping filing detail download for '{$filing->accession_number}' due to network error: {$e->getMessage()}.\n";
+                    }
+                }
+            }
+        } finally {
+            $client->close();
+        }
+    }
+    public static function download_and_save_filing(
+        $client,
+        $download_folder,
+        $ticker_or_cik,
+        $accession_number,
+        $filing_type,
+        $download_url,
+        $save_filename,
+        $user_agent,
+        $resolve_urls = false
+    ) {
+        $headers = [
+            "User-Agent" => $user_agent,
+            "Accept-Encoding" => "gzip, deflate",
+            "Host" => "www.sec.gov",
+        ];
+        $resp = $client->get($download_url, ["headers" => $headers]);
+        $resp->getBody()->rewind();
+        $filing_text = $resp->getBody()->getContents();
+
+        // Only resolve URLs in HTML files
+        if ($resolve_urls && pathinfo($save_filename, PATHINFO_EXTENSION) == "html") {
+            $filing_text = resolve_relative_urls_in_filing($filing_text, $download_url);
+        }
+
+        // Create all parent directories as needed and write content to file
+        $save_path = $download_folder
+            ->append(Constants::ROOT_SAVE_FOLDER_NAME)
+            ->append($ticker_or_cik)
+            ->append($filing_type)
+            ->append($accession_number)
+            ->append($save_filename);
+        $save_path->getParent()->create(true);
+        $save_path->write($filing_text);
+
+        // Prevent rate limiting
+        sleep(Constants::SEC_EDGAR_RATE_LIMIT_SLEEP_INTERVAL);
+    }
+    function resolve_relative_urls_in_filing($filing_text, $download_url) {
+        $dom = new \DOMDocument();
+        $dom->loadHTML($filing_text);
+        $base_url = implode('/', array_slice(explode('/', $download_url), 0, -1)) . "/";
+
+        $anchor_tags = $dom->getElementsByTagName("a");
+        foreach ($anchor_tags as $url) {
+            // Do not resolve a URL if it is a fragment or it already contains a full URL
+            if (strpos($url->getAttribute("href"), "#") === 0 || strpos($url->getAttribute("href"), "http") === 0) {
+                continue;
+            }
+            $url->setAttribute("href", urljoin($base_url, $url->getAttribute("href")));
+        }
+
+        $img_tags = $dom->getElementsByTagName("img");
+        foreach ($img_tags as $image) {
+            $image->setAttribute("src", urljoin($base_url, $image->getAttribute("src")));
+        }
+
+        return $dom->saveHTML();
+    }
 }
 
 // Object for storing metadata about filings that will be downloaded.
