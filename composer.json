@@ -1,0 +1,15 @@
+{
+    "name": "jadchaar/sec-edgar-downloader",
+    "description": "A port of jadchaar/sec-edgar-downloader from the python library",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jadchaar\\SecEdgarDownloader\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
