@@ -164,7 +164,7 @@ class Utils
             $filing_details_filename
         );
     }
-    public function download_filings(
+    public static function download_filings(
         $download_folder,
         $ticker_or_cik,
         $filing_type,
@@ -270,6 +270,11 @@ class Utils
         }
 
         return $dom->saveHTML();
+    }
+    public static function get_number_of_unique_filings( $filings) {
+        return count(array_unique(array_map(function ($filing) {
+            return $filing->accession_number;
+        }, $filings)));
     }
 }
 

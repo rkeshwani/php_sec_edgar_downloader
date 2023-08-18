@@ -99,5 +99,16 @@ class Downloader
                 $query,
                 $user_agent
             );
+        // Download the filings
+        Utils::download_filings(
+            $this->download_folder,
+            $ticker_or_cik,
+            $filing,
+            $filings_to_fetch,
+            $download_details,
+            $user_agent
+        );
+        # Get number of unique accession numbers downloaded
+        return Utils::get_number_of_unique_filings($filings_to_fetch);
     }
 }
