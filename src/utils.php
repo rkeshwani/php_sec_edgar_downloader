@@ -109,7 +109,7 @@ class Utils
         }
         return $filings_to_fetch;
     }
-    private static function form_request_payload(
+    public static function form_request_payload(
         $ticker_or_cik,
         $filing_types,
         $start_date,
@@ -128,7 +128,7 @@ class Utils
         );
         return $payload;
     }
-    private static function build_filing_metadata_from_hit($hit)
+    public static function build_filing_metadata_from_hit($hit)
     {
         list($accession_number, $filing_details_filename) = explode(":", $hit["_id"], 2);
         // the CIKs of executives carrying out insider transactions like in form 4.
