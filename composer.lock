@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e83b42e4cc6f8c919c98ceadc7af343",
+    "content-hash": "0ddd8deb14f9c89e0fae65fe20575bdc",
     "packages": [
+        {
+            "name": "busybee/urljoin",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fluffy-critter/php-urljoin.git",
+                "reference": "2d2c40022e6221f01789ef7b1ac1b65541019e8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fluffy-critter/php-urljoin/zipball/2d2c40022e6221f01789ef7b1ac1b65541019e8e",
+                "reference": "2d2c40022e6221f01789ef7b1ac1b65541019e8e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/urljoin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "j 'fluffy' shagam",
+                    "email": "fluffy@beesbuzz.biz",
+                    "homepage": "https://beesbuzz.biz/"
+                }
+            ],
+            "description": "Library to correctly join relative and absolute URLs",
+            "keywords": [
+                "http",
+                "rel2abs",
+                "relative2absolute",
+                "url-concatenation",
+                "urljoin",
+                "urllib"
+            ],
+            "support": {
+                "issues": "https://github.com/fluffy-critter/php-urljoin/issues",
+                "source": "https://github.com/fluffy-critter/php-urljoin/tree/main"
+            },
+            "time": "2020-11-30T21:49:18+00:00"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.7.0",
@@ -605,7 +655,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

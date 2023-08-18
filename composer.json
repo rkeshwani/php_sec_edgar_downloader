@@ -3,7 +3,8 @@
     "description": "A port of jadchaar/sec-edgar-downloader from the python library",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "^7.7"
+        "guzzlehttp/guzzle": "^7.7",
+        "busybee/urljoin": "dev-main"
     },
     "license": "MIT",
     "autoload": {
@@ -11,5 +12,5 @@
             "Jadchaar\\SecEdgarDownloader\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
