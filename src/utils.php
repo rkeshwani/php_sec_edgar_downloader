@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
-
 namespace jadchaar\secEdgarDownloader\utils;
+require_once __DIR__ . '/vendor/autoload.php';
 
 
 use Exception;
@@ -235,7 +234,7 @@ class Utils
 
         // Only resolve URLs in HTML files
         if ($resolve_urls && pathinfo($save_filename, PATHINFO_EXTENSION) == "html") {
-            $filing_text = resolve_relative_urls_in_filing($filing_text, $download_url);
+            $filing_text = Utils::resolve_relative_urls_in_filing($filing_text, $download_url);
         }
 
         // Create all parent directories as needed and write content to file
@@ -251,7 +250,7 @@ class Utils
         // Prevent rate limiting
         sleep(Constants::SEC_EDGAR_RATE_LIMIT_SLEEP_INTERVAL);
     }
-    function resolve_relative_urls_in_filing($filing_text, $download_url) {
+    public static function resolve_relative_urls_in_filing($filing_text, $download_url) {
         $dom = new \DOMDocument();
         $dom->loadHTML($filing_text);
         $base_url = implode('/', array_slice(explode('/', $download_url), 0, -1)) . "/";
