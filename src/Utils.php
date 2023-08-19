@@ -4,8 +4,8 @@ namespace jadchaar\secEdgarDownloader;
 
 
 use Exception;
-use jadchaar\secEdgarDownloader\Constants;
-use jadchaar\secEdgarDownloader\FilingMetadata;
+use Jadchaar\SecEdgarDownloader\Constants;
+use Jadchaar\SecEdgarDownloader\FilingMetadata;
 
 class Utils
 {

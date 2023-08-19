@@ -2,8 +2,8 @@
 
 namespace jadchaar\secEdgarDownloader;
 
-use jadchaar\secEdgarDownloader\Utils;
-use jadchaar\secEdgarDownloader\Constants;
+use Jadchaar\SecEdgarDownloader\Utils;
+use Jadchaar\SecEdgarDownloader\Constants;
 
 
 class Downloader
