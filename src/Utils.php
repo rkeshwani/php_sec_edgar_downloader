@@ -6,7 +6,6 @@ namespace jadchaar\secEdgarDownloader;
 use Exception;
 use Jadchaar\SecEdgarDownloader\Constants;
 use Jadchaar\SecEdgarDownloader\FilingMetadata;
-use GuzzleHttp\Client;
 
 class Utils
 {
@@ -56,7 +55,7 @@ class Utils
                 "Accept-Encoding" => "gzip, deflate",
                 "Host" => "efts.sec.gov",
             ];
-            $client = \GuzzleHttp\Client();
+            $client = new \GuzzleHttp\Client();
             try {
                 $response = $client->post(Constants::SEC_EDGAR_SEARCH_API_ENDPOINT, ['json' => $payload, 'headers' => $headers]);
             } catch (Exception $e) {
