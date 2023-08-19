@@ -2,7 +2,7 @@
 
 namespace jadchaar\secEdgarDownloader;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use jadchaar\secEdgarDownloader\utils\Utils;
 use jadchaar\secEdgarDownloader\constants\Constants;
