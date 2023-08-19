@@ -133,8 +133,8 @@ class Utils
         list($accession_number, $filing_details_filename) = explode(":", $hit["_id"], 2);
         // the CIKs of executives carrying out insider transactions like in form 4.
         $cik = $hit["_source"]["ciks"][count($hit["_source"]["ciks"]) - 1];
-        $accession_number_no_dashes = str_replace("-", "", $accession_number, 2);
-
+        // $accession_number_no_dashes = str_replace("-", "", $accession_number, 2);
+        $accession_number_no_dashes = preg_replace("/-/", "", $accession_number, 2);
         $submission_base_url = Constants::SEC_EDGAR_ARCHIVES_BASE_URL . "/" . $cik . "/" . $accession_number_no_dashes;
 
         $full_submission_url = $submission_base_url . "/" . $accession_number . ".txt";
