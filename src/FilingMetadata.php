@@ -1,3 +1,5 @@
+<?php
+namespace jadchaar\secEdgarDownloader;
 // Object for storing metadata about filings that will be downloaded.
 class FilingMetadata {
     public $accession_number;
@@ -12,3 +14,4 @@ class FilingMetadata {
         $this->filing_details_filename = $filing_details_filename;
     }
 }
+?>
