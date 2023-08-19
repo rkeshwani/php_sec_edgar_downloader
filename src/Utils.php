@@ -70,7 +70,7 @@ class Utils
                     }
                 }
             }
-            $response_body = $response->getBody();
+            $response_body = $response->getBody()->getContents();
             $response_body_json = json_decode($response_body, true);
             $query_hits = $response_body_json["hits"]["hits"];
             // No more results to process
