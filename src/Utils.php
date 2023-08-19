@@ -6,6 +6,7 @@ namespace jadchaar\secEdgarDownloader;
 use Exception;
 use Jadchaar\SecEdgarDownloader\Constants;
 use Jadchaar\SecEdgarDownloader\FilingMetadata;
+use GuzzleHttp\Client;
 
 class Utils
 {
