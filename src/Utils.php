@@ -1,4 +1,5 @@
 <?php
+
 namespace jadchaar\secEdgarDownloader;
 // require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -190,7 +191,7 @@ class Utils
                 } catch (\GuzzleHttp\Exception\RequestException $e) {
                     echo "Skipping full submission download for '{$filing->accession_number}' due to network error: {$e->getMessage()}.\n";
                 }
-    
+
                 if ($include_filing_details) {
                     try {
                         Utils::download_and_save_filing(
@@ -240,18 +241,24 @@ class Utils
 
         // Create all parent directories as needed and write content to file
         $save_path = $download_folder
-            ->append(Constants::ROOT_SAVE_FOLDER_NAME)
-            ->append($ticker_or_cik)
-            ->append($filing_type)
-            ->append($accession_number)
-            ->append($save_filename);
-        $save_path->getParent()->create(true);
-        $save_path->write($filing_text);
+            . DIRECTORY_SEPARATOR . Constants::ROOT_SAVE_FOLDER_NAME
+            . DIRECTORY_SEPARATOR . $ticker_or_cik
+            . DIRECTORY_SEPARATOR . $filing_type
+            . DIRECTORY_SEPARATOR . $accession_number
+            . DIRECTORY_SEPARATOR . $save_filename;
+        // Create all parent directories if they don't exist
+        if (!is_dir(dirname($save_path))) {
+            mkdir(dirname($save_path), 0777, true);
+        }
+
+        // Write the content to the file
+        file_put_contents($save_path, $filing_text);
 
         // Prevent rate limiting
         sleep(Constants::SEC_EDGAR_RATE_LIMIT_SLEEP_INTERVAL);
     }
-    public static function resolve_relative_urls_in_filing($filing_text, $download_url) {
+    public static function resolve_relative_urls_in_filing($filing_text, $download_url)
+    {
         $dom = new \DOMDocument();
         $dom->loadHTML($filing_text);
         $base_url = implode('/', array_slice(explode('/', $download_url), 0, -1)) . "/";
@@ -272,7 +279,8 @@ class Utils
 
         return $dom->saveHTML();
     }
-    public static function get_number_of_unique_filings( $filings) {
+    public static function get_number_of_unique_filings($filings)
+    {
         return count(array_unique(array_map(function ($filing) {
             return $filing->accession_number;
         }, $filings)));
