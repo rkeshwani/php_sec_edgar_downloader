@@ -4,15 +4,16 @@ Ported over from python. Original Repo:
 ## Installation
 
 To add this library to your `composer.json` file, you can run the following command in your project directory:
-composer require jadchaar/sec_edgar_downloader
+
+`composer require jadchaar/sec_edgar_downloader`
 
 Note your composer file will need to allow development level stability to use for now.
 
  ## Example Usage
-
- use jadchaar\secEdgarDownloader\Downloader;
- 
- $downloader = new Downloader();
+```php
+ use Jadchaar\SecEdgarDownloader\Downloader;
+ $filepath = 'sec-documents/';
+ $downloader = new Downloader($filepath);
  $filing = '10-K';
  $ticker_or_cik = 'AAPL';
  $amount = 10;
@@ -36,7 +37,7 @@ Note your composer file will need to allow development level stability to use fo
  );
  
  echo "Number of unique filings downloaded: " . $num_filings;
-
+```
  ## Todo List
 
  - [ ] Abstract HTTP client
