@@ -102,7 +102,7 @@ class Utils
             }
             // Edgar queries 100 entries at a time, but it is best to set this
             // from the response payload in case it changes in the future
-            $query_size = $response_body_json["query"]["size"];
+            $query_size = json_decode($response_body_json["query"],true)["size"];
             $start_index += $query_size;
 
             // Prevent rate limiting

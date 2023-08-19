@@ -41,5 +41,8 @@ Note your composer file will need to allow development level stability to use fo
  ## Todo List
 
  - [ ] Abstract HTTP client
+ - [ ] Parameterize rate limit with default
+ - [ ] Allow downloading different file types
+ - [ ] Enable different file type paths besides local file systems
 
  
