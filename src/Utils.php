@@ -157,7 +157,7 @@ class Utils
         $filing_details_url = $submission_base_url . "/" . $filing_details_filename;
 
         $filing_details_filename_extension = pathinfo($filing_details_filename, PATHINFO_EXTENSION);
-        $filing_details_filename = Constants::FILING_DETAILS_FILENAME_STEM . $filing_details_filename_extension;
+        $filing_details_filename = Constants::FILING_DETAILS_FILENAME_STEM . '.' . $filing_details_filename_extension;
 
         return new FilingMetadata(
             $accession_number,
