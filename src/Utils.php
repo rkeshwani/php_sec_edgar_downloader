@@ -1,10 +1,10 @@
 <?php
-namespace jadchaar\secEdgarDownloader\utils;
-require_once __DIR__ . '/vendor/autoload.php';
+namespace jadchaar\secEdgarDownloader;
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
 use Exception;
-use jadchaar\secEdgarDownloader\constants\Constants;
+use jadchaar\secEdgarDownloader\Constants;
 
 class Utils
 {

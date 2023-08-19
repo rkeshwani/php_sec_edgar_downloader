@@ -1,5 +1,5 @@
 <?php
-namespace jadchaar\secEdgarDownloader\constants;
+namespace jadchaar\secEdgarDownloader;
 
 use DateTime;
 
